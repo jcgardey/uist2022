@@ -2,15 +2,36 @@
     font-size: 16px;
     display: block;
     font-family: "Oxygen";
-    margin: 1px 0;
+    margin: 3px 0;
+    color: #303030;
+    font-weight: 600;
 }
 
 .form-input {
     height: 30px;
     border-radius: 5px;
-    border: 1px solid grey;
+    border: 1px solid #e2e2e2;
+    width: 100%;
+}
+
+.inline-input {
+   display: flex;
+   justify-content: space-between;
 }
 
 .form-field {
-    margin: 8px 0;
+    margin: 1.5em 0;
+}
+
+.col-4 {
+    width: 40%;
+}
+
+.radio-item.inline {
+    display: inline-block;
+    margin-right: 5px;
+}
+.radio-item.block {
+    display: block;
+    margin: 5px;
 }

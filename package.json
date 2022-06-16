@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.32.1",
+    "salsa-calendar": "^1.0.19",
     "terser-webpack-plugin": "^5.3.3",
     "url-loader": "^4.1.1"
   },
