@@ -1,0 +1,16 @@
+.form-label {
+    font-size: 16px;
+    display: block;
+    font-family: "Oxygen";
+    margin: 1px 0;
+}
+
+.form-input {
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.form-field {
+    margin: 8px 0;
+}

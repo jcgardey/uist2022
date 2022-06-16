@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Oxygen";
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/oxygen/v10/2sDcZG1Wl4LcnbuCJW8zaGW8.ttf)
+      format("truetype");
+  }
+
+.container {
+    width: 70%;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+}
