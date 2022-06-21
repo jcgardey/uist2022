@@ -12,6 +12,16 @@
     border-radius: 5px;
     border: 1px solid #e2e2e2;
     width: 100%;
+    padding:6px;
+}
+
+.form-input.error {
+    border-color: red;
+}
+
+.field-error {
+    color: red;
+    display: block;
 }
 
 .inline-input {
@@ -34,4 +44,8 @@
 .radio-item.block {
     display: block;
     margin: 5px;
+}
+
+select {
+    box-sizing: content-box;
 }

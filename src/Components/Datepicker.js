@@ -3,7 +3,14 @@ import { Field } from './Field';
 var SalsaCalendar = require('../../node_modules/salsa-calendar/build/SalsaCalendar.min.js');
 import '../../node_modules/salsa-calendar/build/SalsaCalendar.min.css';
 
-export const Datepicker = ({ label, name, ...props }) => {
+export const Datepicker = ({
+  name,
+  label,
+  register,
+  required,
+  errors,
+  ...props
+}) => {
   useEffect(() => {
     new SalsaCalendar({
       inputId: name,
@@ -13,8 +20,14 @@ export const Datepicker = ({ label, name, ...props }) => {
   }, []);
 
   return (
-    <Field label={label}>
-      <input type="text" id={name} className="form-input" />
+    <Field label={label} errors={errors}>
+      <input
+        type="text"
+        id={name}
+        className={`form-input${errors !== undefined ? ' error' : ''}`}
+        {...register(name, { required: required || false })}
+      />
     </Field>
   );
 };
+

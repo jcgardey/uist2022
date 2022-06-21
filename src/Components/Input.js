@@ -1,8 +1,14 @@
 import React from 'react';
 import { Field } from './Field';
 
-export const Input = ({ label, ...props }) => (
-  <Field label={label}>
-    <input type="text" className="form-input" {...props} />
+export const Input = ({ name, label, register, required, errors }) => (
+  <Field label={label} errors={errors}>
+    <input
+      name={name}
+      type="text"
+      className={`form-input${errors !== undefined ? ' error' : ''}`}
+      {...register(name, { required: required || false })}
+    />
   </Field>
 );
+

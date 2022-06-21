@@ -2,12 +2,12 @@ import React from 'react';
 import { Field } from './Field';
 import { SelectInput } from './Select';
 
-export const DateSelects = ({ label, name }) => (
+export const DateSelects = ({ name, label, register, required, errors }) => (
   <Field label={label}>
     <div className="inline-input">
       <SelectInput
         name={`${name}_dia`}
-        style={{ width: '25%' }}
+        style={{ width: '20%' }}
         options={[
           '1',
           '2',
@@ -26,6 +26,9 @@ export const DateSelects = ({ label, name }) => (
           '15',
           '16',
         ]}
+        register={register}
+        required={required}
+        errors={errors[`${name}_dia`]}
       />
       <SelectInput
         name={`${name}_mes`}
@@ -44,12 +47,19 @@ export const DateSelects = ({ label, name }) => (
           'Noviembre',
           'Diciembre',
         ]}
+        register={register}
+        required={required}
+        errors={errors[`${name}_mes`]}
       />
       <SelectInput
         name={`${name}_anio`}
-        style={{ width: '25%' }}
+        style={{ width: '20%' }}
         options={['2022', '2021', '2020', '2019']}
+        register={register}
+        required={required}
+        errors={errors[`${name}_anio`]}
       />
     </div>
   </Field>
 );
+
