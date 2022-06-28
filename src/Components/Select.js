@@ -22,6 +22,7 @@ export const Select = ({
 
 export const SelectInput = ({
   name,
+  label,
   options,
   required,
   register,
@@ -33,7 +34,7 @@ export const SelectInput = ({
     className={`form-input${errors !== undefined ? ' error' : ''}`}
     {...props}
   >
-    <option value="">Seleccionar</option>
+    <option value="">{label || 'Seleccionar'}</option>
     {options.map((option) => (
       <option key={option}>{option}</option>
     ))}

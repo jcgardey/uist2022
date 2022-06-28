@@ -54,6 +54,7 @@ export const App = ({}) => {
           <DateSelects
             label={'Fecha de Nacimiento'}
             name={'fecha_nacimiento'}
+            years={['2022', '2021', '2020', '2019']}
             register={register}
             required={true}
             errors={errors}
