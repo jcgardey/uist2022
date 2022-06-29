@@ -1,0 +1,22 @@
+.form-input {
+    border-radius: 3px;
+}
+
+.form-label {
+    color: rgb(105, 105, 105);
+}
+
+.section-title {
+    background-color: rgb(57, 111, 165);
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+}
+
+button[type='submit'] {
+    background-color: rgb(57, 111, 165);
+}
+
+.radio-item {
+    color: rgb(57, 111, 165);
+}

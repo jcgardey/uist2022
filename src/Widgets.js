@@ -23,7 +23,7 @@ export const Widgets = ({}) => {
             name={'name'}
             label={'Nombre'}
             register={register}
-            required={true}
+            rules={{ required: true }}
             errors={errors.name}
           />
           <Input
@@ -72,4 +72,3 @@ export const Widgets = ({}) => {
     </div>
   );
 };
-

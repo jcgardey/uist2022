@@ -7,6 +7,8 @@ export const Field = ({ label, className, errors, children }) => (
     {errors?.type === 'required' && (
       <span className="field-error">{label} es requerido</span>
     )}
+    {errors?.type && errors?.type !== 'required' && (
+      <span className="field-error">{errors.message}</span>
+    )}
   </div>
 );
-
