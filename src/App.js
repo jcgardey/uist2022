@@ -7,6 +7,7 @@ import './Components/Form.css';
 import './Pages/Layout.css';
 
 import './Pages/Pasajero.css';
+import { Success } from './Pages/Success';
 
 export const App = ({}) => (
   <div className="container">
@@ -14,6 +15,7 @@ export const App = ({}) => (
       <Routes>
         <Route path="/widgets" element={<Widgets />} />
         <Route path="/pasajero" element={<Pasajero />} />
+        <Route path="/success" element={<Success />} />
       </Routes>
     </HashRouter>
   </div>
