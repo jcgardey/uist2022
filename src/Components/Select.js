@@ -5,7 +5,7 @@ export const Select = ({
   name,
   label,
   disabled,
-  selected,
+  defaultValue,
   options,
   register,
   required,
@@ -17,7 +17,7 @@ export const Select = ({
       name={name}
       options={options}
       disabled={disabled}
-      selected={selected}
+      defaultValue={defaultValue}
       required={required}
       register={register}
       errors={errors}
@@ -30,7 +30,7 @@ export const SelectInput = ({
   name,
   label,
   disabled,
-  selected,
+  defaultValue,
   options,
   required,
   register,
@@ -41,17 +41,12 @@ export const SelectInput = ({
     {...register(name, { required: required || false })}
     className={`form-input${errors !== undefined ? ' error' : ''}`}
     disabled={disabled || false}
+    defaultValue={defaultValue}
     {...props}
   >
     <option value="">{label || 'Seleccionar'}</option>
-    {options.map((option) =>
-      selected === option ? (
-        <option selected key={option}>
-          {option}
-        </option>
-      ) : (
-        <option key={option}>{option}</option>
-      )
-    )}
+    {options.map((option) => (
+      <option key={option}>{option}</option>
+    ))}
   </select>
 );

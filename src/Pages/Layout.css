@@ -24,3 +24,7 @@
 .col-40 {
     width: 40%;
 }
+
+.title {
+    font-weight: bold;
+}
