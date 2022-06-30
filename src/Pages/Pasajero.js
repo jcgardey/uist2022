@@ -1,21 +1,25 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { DateSelects } from '../Components/DateSelects';
 import { Input } from '../Components/Input';
 import { RadioSet } from '../Components/RadioSet';
 import { Select } from '../Components/Select';
 import { countries, countryNames, range } from '../utils';
 
-export const Pasajero = ({}) => {
+export const Pasajero = ({ setTitle }) => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
 
-  console.log(errors);
+  setTitle('Información de Pasajero');
+
+  let navigate = useNavigate();
+
+  const onSubmit = (data) => navigate('/success', { replace: true });
 
   const nameRules = {
     required: true,
@@ -85,7 +89,6 @@ export const Pasajero = ({}) => {
                 disabled={true}
                 selected={'Pasaporte'}
                 register={register}
-                required={true}
                 options={['Pasaporte']}
               />
             </div>
@@ -97,7 +100,7 @@ export const Pasajero = ({}) => {
                 rules={{
                   required: true,
                   pattern: {
-                    value: /^(?!^0+$)[a-zA-Z0-9]{,20}$/,
+                    value: /^(?!^0+$)[a-zA-Z0-9]{5,20}$/,
                     message: 'Ingrese un numero de document valido',
                   },
                 }}
@@ -107,7 +110,7 @@ export const Pasajero = ({}) => {
             <div className="col-30">
               <Select
                 name={'id_country'}
-                label={'Pais de Emision'}
+                label={'Pais de Emisión'}
                 register={register}
                 required={true}
                 options={countryNames()}
