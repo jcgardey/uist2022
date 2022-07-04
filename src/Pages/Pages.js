@@ -4,6 +4,7 @@ import { Widgets } from '../Widgets';
 import { Pasajero } from './Pasajero';
 import { Pasaporte } from './Pasaporte';
 import { Success } from './Success';
+import { Checkout } from './Checkout/Checkout';
 
 export const Pages = () => {
   const [title, setTitle] = useState('Default Title');
@@ -20,6 +21,7 @@ export const Pages = () => {
       <Route path="/widgets" element={<Widgets />} />
       <Route path="/pasajero" element={<Pasajero onSubmit={onSubmit} />} />
       <Route path="/pasaporte" element={<Pasaporte onSubmit={onSubmit} />} />
+      <Route path="/checkout" element={<Checkout onSubmit={onSubmit} />} />
       <Route path="/success" element={<Success />} />
     </Routes>
   );

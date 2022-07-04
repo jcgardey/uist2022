@@ -4,7 +4,7 @@
     font-family: "Oxygen";
     margin: 3px 0;
     color: #303030;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .form-input {
@@ -44,7 +44,7 @@
 }
 .radio-item.block {
     display: block;
-    margin: 5px;
+    margin: 10px 4px;
 }
 
 select {
