@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import { RadioSet } from '../Components/RadioSet';
 import { Select } from '../Components/Select';
 import { cities, provinces } from '../utils';
+import './Pasaporte.css';
 
-export const Pasaporte = () => {
+export const Pasaporte = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -27,12 +28,12 @@ export const Pasaporte = () => {
   return (
     <>
       <h2 className="title">Sacar turno</h2>
-      <h4>Pasaporte</h4>
+      <h3>Pasaporte</h3>
       <div className="col-50">
-        <form>
-          <div className="form-section">
-            <p className="section-title">
-              Eleg&iacute; la provincia, localidad y sede del tr&aacute;mite
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="passport-section">
+            <p className="passport-section-title">
+              1. Eleg&iacute; la provincia, localidad y sede del tr&aacute;mite
             </p>
             <Select
               name={'provincia'}
@@ -54,14 +55,14 @@ export const Pasaporte = () => {
                 inline={false}
                 options={offices[city] || []}
                 register={register}
-                required={true}
+                rules={{ required: 'Elija un lugar' }}
                 errors={errors.oficina}
               />
             </div>
           </div>
-          <div className="form-section">
-            <p className="section-title">
-              Eleg&iacute; una fecha para el turno
+          <div className="passport-section">
+            <p className="passport-section-title">
+              2. Eleg&iacute; una fecha para el turno
             </p>
             <RadioSet
               label={''}
@@ -73,20 +74,25 @@ export const Pasaporte = () => {
                 'Mie. 3 de agosto',
                 'Jue. 4 de agosto',
                 'Vie. 5 de agosto',
+                'Lu. 8 de agosto',
+                'Mar. 9 de agosto',
+                'Mie. 10 de agosto',
+                'Jue. 11 de agosto',
               ]}
               register={register}
-              required={true}
+              rules={{ required: 'Elija una fecha' }}
               errors={errors.fecha}
+              style={{ display: 'flex', width: '500px', flexWrap: 'wrap' }}
             />
           </div>
-          <div className="form-section">
-            <p className="section-title">
-              Eleg&iacute; un horario de atenci&oacute;n
+          <div className="passport-section">
+            <p className="passport-section-title">
+              3. Eleg&iacute; un horario de atenci&oacute;n
             </p>
             <RadioSet
               label={''}
               name={'hora'}
-              inline={false}
+              inline={true}
               options={[
                 '11:15',
                 '11:25',
@@ -99,13 +105,16 @@ export const Pasaporte = () => {
                 '12:35',
               ]}
               register={register}
-              required={true}
+              rules={{ required: 'Elija un horario' }}
               errors={errors.hora}
             />
           </div>
-          <button type="submit">Confirmar</button>
+          <button type="submit" className="passport">
+            Confirmar
+          </button>
         </form>
       </div>
     </>
   );
 };
+

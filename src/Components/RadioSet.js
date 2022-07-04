@@ -5,23 +5,20 @@ export const RadioSet = ({
   name,
   label,
   options,
-  required,
+  className,
+  rules,
   register,
   errors,
   inline,
-  ...props
+  style,
 }) => (
-  <Field label={label} errors={errors}>
+  <Field label={label} errors={errors} style={style} className={className}>
     {options.map((option) => (
       <label
         key={option}
         className={`radio-item ${inline ? 'inline' : 'block'}`}
       >
-        <input
-          type={'radio'}
-          {...register(name, { required: required || false })}
-          value={option}
-        />
+        <input type={'radio'} {...register(name, rules || {})} value={option} />
         {option}
       </label>
     ))}

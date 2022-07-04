@@ -6,17 +6,18 @@
     color: rgb(105, 105, 105);
 }
 
-.section-title {
+.passenger-section-title {
     background-color: rgb(57, 111, 165);
     color: white;
     font-weight: bold;
     padding: 5px;
 }
 
-button[type='submit'] {
+button[type='submit'].passenger {
     background-color: rgb(57, 111, 165);
+    width: 100%;
 }
 
-.radio-item {
+.passenger-radio .radio-item {
     color: rgb(57, 111, 165);
 }

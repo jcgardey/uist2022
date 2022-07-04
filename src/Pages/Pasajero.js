@@ -1,25 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { DateSelects } from '../Components/DateSelects';
 import { Input } from '../Components/Input';
 import { RadioSet } from '../Components/RadioSet';
 import { Select } from '../Components/Select';
 import { countries, countryNames, range } from '../utils';
 
-export const Pasajero = ({ setTitle }) => {
+export const Pasajero = ({ setTitle, onSubmit }) => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-
-  setTitle('Información de Pasajero');
-
-  let navigate = useNavigate();
-
-  const onSubmit = (data) => navigate('/success', { replace: true });
 
   const nameRules = {
     required: true,
@@ -36,7 +29,7 @@ export const Pasajero = ({ setTitle }) => {
   return (
     <div className="row">
       <div className="col-75">
-        <p className="section-title">Datos del pasajero</p>
+        <p className="passenger-section-title">Datos del pasajero</p>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-40">
@@ -73,6 +66,7 @@ export const Pasajero = ({ setTitle }) => {
               <RadioSet
                 label={'Sexo'}
                 name={'sex'}
+                className={'passenger-radio'}
                 inline={true}
                 options={['Masculino', 'Femenino']}
                 register={register}
@@ -144,7 +138,9 @@ export const Pasajero = ({ setTitle }) => {
           </div>
           <div className="row" style={{ justifyContent: 'space-around' }}>
             <div className="col-30">
-              <button type="submit">Enviar</button>
+              <button className="passenger" type="submit">
+                Enviar
+              </button>
             </div>
           </div>
         </form>
@@ -152,3 +148,4 @@ export const Pasajero = ({ setTitle }) => {
     </div>
   );
 };
+
