@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Order } from './Order';
 import { Payment } from './Payment';
 import { Shipping } from './Shipping';
 
@@ -21,6 +22,7 @@ export const Checkout = ({ onSubmit }) => {
             <Shipping register={register} errors={errors} />
           </div>
           <div className="col-40">
+            <Order />
             <Payment register={register} errors={errors} />
           </div>
         </div>
