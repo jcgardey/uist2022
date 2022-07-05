@@ -5,7 +5,7 @@ import { Pasajero } from './Pasajero';
 import { Pasaporte } from './Pasaporte';
 import { Success } from './Success';
 import { Checkout } from './Checkout/Checkout';
-import { Prestamo } from './Prestamo';
+import { Prestamo } from './Prestamo/Prestamo';
 
 export const Pages = () => {
   const [title, setTitle] = useState('Default Title');
@@ -28,3 +28,4 @@ export const Pages = () => {
     </Routes>
   );
 };
+
