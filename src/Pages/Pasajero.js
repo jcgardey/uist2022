@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { DateSelects } from '../Components/DateSelects';
 import { Input } from '../Components/Input';
 import { RadioSet } from '../Components/RadioSet';
-import { Select } from '../Components/Select';
+import { Select } from '../Components/CustomSelect';
 import { countries, countryNames, range } from '../utils';
 
 export const Pasajero = ({ setTitle, onSubmit }) => {
@@ -11,6 +11,7 @@ export const Pasajero = ({ setTitle, onSubmit }) => {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm();
 
@@ -57,8 +58,8 @@ export const Pasajero = ({ setTitle, onSubmit }) => {
                 label={'Fecha de Nacimiento'}
                 name={'fecha_nacimiento'}
                 years={range(1925, 2022).reverse()}
-                register={register}
-                required={true}
+                control={control}
+                rules={{ required: true }}
                 errors={errors}
               />
             </div>
@@ -81,8 +82,8 @@ export const Pasajero = ({ setTitle, onSubmit }) => {
                 name={'id_type'}
                 label={'Tipo de Documento'}
                 disabled={true}
-                selected={'Pasaporte'}
-                register={register}
+                defaultValue={'Pasaporte'}
+                control={control}
                 options={['Pasaporte']}
               />
             </div>
@@ -105,8 +106,8 @@ export const Pasajero = ({ setTitle, onSubmit }) => {
               <Select
                 name={'id_country'}
                 label={'Pais de Emisión'}
-                register={register}
-                required={true}
+                control={control}
+                rules={{ required: true }}
                 options={countryNames()}
                 errors={errors.id_country}
               />
@@ -118,8 +119,8 @@ export const Pasajero = ({ setTitle, onSubmit }) => {
                 label={'Fecha de Caducidad'}
                 name={'id_due_date'}
                 years={range(2022, 2026)}
-                register={register}
-                required={true}
+                control={control}
+                rules={{ required: true }}
                 errors={errors}
               />
             </div>
@@ -129,8 +130,8 @@ export const Pasajero = ({ setTitle, onSubmit }) => {
               <Select
                 name={'country'}
                 label={'Nacionalidad'}
-                register={register}
-                required={true}
+                control={control}
+                rules={{ required: true }}
                 options={countryNames()}
                 errors={errors.country}
               />

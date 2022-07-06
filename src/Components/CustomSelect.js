@@ -53,11 +53,20 @@ const CustomSelect = ({ label, value, onChange, options, style }) => {
   );
 };
 
-export const Select = ({ name, label, errors, options, control, rules }) => (
+export const Select = ({
+  name,
+  label,
+  defaultValue,
+  errors,
+  options,
+  control,
+  rules,
+}) => (
   <Field label={label} errors={errors}>
     <SelectInput
       name={name}
       control={control}
+      defaultValue={defaultValue}
       rules={rules}
       options={options}
     />
@@ -67,6 +76,7 @@ export const Select = ({ name, label, errors, options, control, rules }) => (
 export const SelectInput = ({
   name,
   label,
+  defaultValue,
   errors,
   options,
   control,
@@ -76,6 +86,7 @@ export const SelectInput = ({
   <Controller
     name={name}
     control={control}
+    defaultValue={defaultValue}
     rules={rules}
     render={({ field }) => (
       <CustomSelect
