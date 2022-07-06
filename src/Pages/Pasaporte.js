@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { RadioSet } from '../Components/RadioSet';
-import { Select } from '../Components/Select';
+import { Select } from '../Components/CustomSelect';
 import { cities, provinces } from '../utils';
 import './Pasaporte.css';
 
@@ -10,7 +10,7 @@ export const Pasaporte = ({ onSubmit }) => {
     register,
     handleSubmit,
     watch,
-    getValues,
+    control,
     formState: { errors },
   } = useForm();
 
@@ -39,13 +39,16 @@ export const Pasaporte = ({ onSubmit }) => {
               name={'provincia'}
               label={'Provincia'}
               defaultValue={'Buenos Aires'}
-              register={register}
+              control={control}
+              rules={{ required: true }}
               options={provinces}
             />
             <Select
               name={'city'}
               label={'Localidad'}
-              register={register}
+              control={control}
+              rules={{ required: true }}
+              errors={errors.city}
               options={cities[province]}
             />
             <div style={{ display: city !== undefined }}>
