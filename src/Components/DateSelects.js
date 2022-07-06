@@ -1,19 +1,12 @@
 import React from 'react';
 import { range } from '../utils';
 import { Field } from './Field';
-import { SelectInput } from './Select';
+import { SelectInput } from './CustomSelect';
 
-export const DateSelects = ({
-  name,
-  label,
-  years,
-  register,
-  required,
-  errors,
-}) => {
+export const DateSelects = ({ name, label, years, control, errors, rules }) => {
   const dateError =
     errors[`${name}_dia`] || errors[`${name}_mes`] || errors[`${name}_anio`]
-      ? { type: 'required' }
+      ? { type: 'required', message: '' }
       : {};
 
   return (
@@ -24,8 +17,8 @@ export const DateSelects = ({
           label="Dia"
           style={{ width: '20%' }}
           options={range(1, 31)}
-          register={register}
-          required={required}
+          control={control}
+          rules={rules}
           errors={errors[`${name}_dia`]}
         />
         <SelectInput
@@ -46,8 +39,8 @@ export const DateSelects = ({
             'Noviembre',
             'Diciembre',
           ]}
-          register={register}
-          required={required}
+          control={control}
+          rules={rules}
           errors={errors[`${name}_mes`]}
         />
         <SelectInput
@@ -55,11 +48,12 @@ export const DateSelects = ({
           label="Año"
           style={{ width: '20%' }}
           options={years}
-          register={register}
-          required={required}
+          control={control}
+          rules={rules}
           errors={errors[`${name}_anio`]}
         />
       </div>
     </Field>
   );
 };
+

@@ -1,19 +1,23 @@
 import React from 'react';
 import { Input } from './Components/Input';
-import { Select } from './Components/Select';
+import { Select } from './Components/CustomSelect';
 import { RadioSet } from './Components/RadioSet';
 import { DateSelects } from './Components/DateSelects';
 import { Datepicker } from './Components/Datepicker';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+import { CustomSelect } from './Components/CustomSelect';
 
 export const Widgets = ({}) => {
   const {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
+
+  console.log(errors);
 
   return (
     <div className="container">
@@ -35,8 +39,9 @@ export const Widgets = ({}) => {
           <Select
             name={'city'}
             label={'Ciudad'}
+            control={control}
             register={register}
-            required={true}
+            rules={{ required: true }}
             errors={errors.city}
             options={['La Plata', 'Buenos Aires', 'Mar del Plata']}
           />
@@ -53,8 +58,8 @@ export const Widgets = ({}) => {
             label={'Fecha de Nacimiento'}
             name={'fecha_nacimiento'}
             years={['2022', '2021', '2020', '2019']}
-            register={register}
-            required={true}
+            control={control}
+            rules={{ required: true }}
             errors={errors}
           />
           <Datepicker
@@ -72,3 +77,4 @@ export const Widgets = ({}) => {
     </div>
   );
 };
+
