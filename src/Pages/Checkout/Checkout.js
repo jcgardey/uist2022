@@ -8,6 +8,7 @@ export const Checkout = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,
+    control,
     watch,
     formState: { errors },
   } = useForm();
@@ -19,7 +20,7 @@ export const Checkout = ({ onSubmit }) => {
         <div className="row">
           <div className="col-50">
             <h2>Datos de env&iacute;o</h2>
-            <Shipping register={register} errors={errors} />
+            <Shipping register={register} control={control} errors={errors} />
           </div>
           <div className="col-40">
             <Order />
@@ -30,4 +31,3 @@ export const Checkout = ({ onSubmit }) => {
     </>
   );
 };
-

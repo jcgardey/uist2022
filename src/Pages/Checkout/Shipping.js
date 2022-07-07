@@ -1,9 +1,9 @@
 import React from 'react';
 import { Input } from '../../Components/Input';
-import { Select } from '../../Components/Select';
+import { Select } from '../../Components/CustomSelect';
 import { provinces } from '../../utils';
 
-export const Shipping = ({ register, errors }) => (
+export const Shipping = ({ register, control, errors }) => (
   <>
     <Input
       name={'name'}
@@ -55,8 +55,8 @@ export const Shipping = ({ register, errors }) => (
     <Select
       name={'provincia'}
       label={'Provincia'}
-      register={register}
-      required={true}
+      control={control}
+      rules={{ required: true }}
       errors={errors.provincia}
       options={provinces}
     />
@@ -75,4 +75,3 @@ export const Shipping = ({ register, errors }) => (
     />
   </>
 );
-
