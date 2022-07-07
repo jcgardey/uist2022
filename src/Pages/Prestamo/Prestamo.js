@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from '../../Components/Input';
-import { Select } from '../../Components/Select';
+import { Select } from '../../Components/CustomSelect';
 import { provinces } from '../../utils';
 
 import './Prestamo.css';
@@ -11,6 +11,7 @@ export const Prestamo = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,
+    control,
     watch,
     formState: { errors },
   } = useForm();
@@ -47,8 +48,8 @@ export const Prestamo = ({ onSubmit }) => {
                 <Select
                   name={'tipo'}
                   label={'Tipo de cálculo'}
-                  register={register}
-                  required={true}
+                  control={control}
+                  rules={{ required: true }}
                   options={['Por Monto', 'Por Cuota']}
                   value="Por Monto"
                   errors={errors.tipo}
@@ -72,8 +73,8 @@ export const Prestamo = ({ onSubmit }) => {
                 <Select
                   name={'plazo'}
                   label={'Plazo'}
-                  register={register}
-                  required={true}
+                  control={control}
+                  rules={{ required: true }}
                   options={[
                     '12 meses',
                     '18 meses',
@@ -95,8 +96,8 @@ export const Prestamo = ({ onSubmit }) => {
                 <Select
                   name={'tipo_cliente'}
                   label={'Tipo de cliente'}
-                  register={register}
-                  required={true}
+                  control={control}
+                  rules={{ required: true }}
                   options={['Exclusive', 'Premium', 'Cartera General', 'Start']}
                   errors={errors['tipo_cliente']}
                 />
@@ -105,8 +106,8 @@ export const Prestamo = ({ onSubmit }) => {
                 <Select
                   name={'jurisdiccion'}
                   label={'Jurisdicción'}
-                  register={register}
-                  required={true}
+                  control={control}
+                  rules={{ required: true }}
                   options={provinces}
                   errors={errors['jurisdiccion']}
                 />
@@ -129,4 +130,3 @@ export const Prestamo = ({ onSubmit }) => {
     </div>
   );
 };
-
