@@ -16,7 +16,7 @@ QuestionnaireModal.prototype.show = function () {
   this.questions.style.margin = '10px';
   this.questions.appendChild(
     this.createQuestion(
-      'La funcionalidad del sistema cumple con mis requerimientos',
+      'La funcionalidad del sistema cumple con los requerimientos de la tarea',
       'question_1'
     )
   );
@@ -24,6 +24,11 @@ QuestionnaireModal.prototype.show = function () {
     this.createQuestion('Este sistema es fácil de usar', 'question_2')
   );
   this.container.appendChild(this.questions);
+
+  this.questions.appendChild(this.createInput('age', 'Edad'));
+  this.questions.appendChild(
+    this.createInput('hours', 'Cantidad de horas diarias que utiliza la web')
+  );
 
   this.container.appendChild(this.createSubmitButton());
 
@@ -35,7 +40,8 @@ QuestionnaireModal.prototype.createQuestion = function (
   questionName
 ) {
   const question = document.createElement('div');
-  question.style.margin = '40px 0';
+  //question.style.margin = '40px 0';
+  question.className = 'question-container';
 
   const p = document.createElement('p');
   p.className = 'recorder-question';
@@ -55,18 +61,29 @@ QuestionnaireModal.prototype.createQuestion = function (
   return question;
 };
 
+QuestionnaireModal.prototype.createInput = function (name, label) {
+  const div = document.createElement('div');
+  div.style.margin = '20px 0';
+  const labelElement = document.createElement('label');
+  labelElement.textContent = label;
+  labelElement.className = 'recorder-question';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'recorder-input';
+  input.name = name;
+  div.appendChild(labelElement);
+  div.appendChild(input);
+  return div;
+};
+
 QuestionnaireModal.prototype.createSubmitButton = function () {
   const buttonsContainer = document.createElement('div');
   buttonsContainer.style.margin = '30px 10px';
 
   const button = document.createElement('button');
   button.type = 'button';
+  button.className = 'questionnaire-button';
   button.textContent = 'Enviar';
-  button.style.border = 'none';
-  button.style.backgroundColor = '#007bff';
-  button.style.color = 'white';
-  button.style.padding = '6px 12px';
-  button.style.borderRadius = '5px';
 
   const me = this;
   button.addEventListener('click', function () {
@@ -77,13 +94,26 @@ QuestionnaireModal.prototype.createSubmitButton = function () {
   return buttonsContainer;
 };
 
-QuestionnaireModal.prototype.sendQuestionnaire = function () {
+QuestionnaireModal.prototype.validateQuestions = function () {
   const questions = ['question_1', 'question_2'];
-  if (
+  return (
     questions.filter(
       (q) => document.querySelector(`input[name="${q}"]:checked`) !== null
-    ).length !== questions.length
-  ) {
+    ).length === questions.length
+  );
+};
+
+QuestionnaireModal.prototype.validateInputs = function () {
+  const inputs = ['age', 'hours'];
+  return (
+    inputs.filter(
+      (i) => document.querySelector(`input[name="${i}"]`).value !== ''
+    ).length === inputs.length
+  );
+};
+
+QuestionnaireModal.prototype.sendQuestionnaire = function () {
+  if (!this.validateQuestions() || !this.validateInputs()) {
     console.log('form invalido');
     return false;
   }
@@ -100,23 +130,15 @@ QuestionnaireModal.prototype.sendQuestionnaire = function () {
           .value,
         question_2: document.querySelector('input[name="question_2"]:checked')
           .value,
+        age: document.querySelector(`input[name="age"]`).value,
+        hours: document.querySelector(`input[name="hours"]`).value,
       },
     }),
   });
-  /*
-  browser.runtime.sendMessage({
-    message: 'questionnaire',
-    data: {
-      id: this.id,
-      question_1: document.querySelector('input[name="question_1"]:checked')
-        .value,
-      question_2: document.querySelector('input[name="question_2"]:checked')
-        .value,
-    },
-  });*/
   this.remove();
 };
 
 QuestionnaireModal.prototype.remove = function () {
   this.container.parentNode.removeChild(this.container);
 };
+
