@@ -24,6 +24,7 @@ export const Datepicker = ({
       <input
         type="text"
         id={name}
+        widget-type="datepicker"
         className={`form-input${errors !== undefined ? ' error' : ''}`}
         {...register(name, { required: required || false })}
       />

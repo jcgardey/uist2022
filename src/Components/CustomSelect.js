@@ -3,7 +3,15 @@ import { Controller } from 'react-hook-form';
 import './CustomSelect.css';
 import { Field } from './Field';
 
-const CustomSelect = ({ label, value, onChange, options, style }) => {
+const CustomSelect = ({
+  groupName,
+  label,
+  value,
+  onChange,
+  options,
+  style,
+  widgetType = 'select',
+}) => {
   //const [value, setValue] = useState(defaultValue || '');
   const [showOptions, setShowOptions] = useState(false);
 
@@ -22,8 +30,8 @@ const CustomSelect = ({ label, value, onChange, options, style }) => {
   }, []);
 
   const toggleDisplay = () => {
+    if (!showOptions) selectElement.current.dispatchEvent(new Event('open'));
     setShowOptions(!showOptions);
-    if (showOptions) selectElement.current.dispatchEvent(new Event('open'));
   };
 
   const changeOption = (option) => {
@@ -34,8 +42,14 @@ const CustomSelect = ({ label, value, onChange, options, style }) => {
   };
 
   return (
-    <div className="select-wrapper" ref={selectElement} style={style}>
-      <div className="select-title form-input" onClick={toggleDisplay}>
+    <div
+      className="select-wrapper"
+      ref={selectElement}
+      style={style}
+      widget-type={widgetType}
+      data-select-name={groupName}
+    >
+      <div className="title form-input" onClick={toggleDisplay}>
         {value || label || 'Seleccionar'}
       </div>
       <div className={`select-options${showOptions ? '' : ' collapse'}`}>
@@ -75,7 +89,9 @@ export const Select = ({
 
 export const SelectInput = ({
   name,
+  groupName,
   label,
+  widgetType,
   defaultValue,
   errors,
   options,
@@ -90,8 +106,10 @@ export const SelectInput = ({
     rules={rules}
     render={({ field }) => (
       <CustomSelect
+        groupName={groupName}
         label={label}
         value={field.value}
+        widgetType={widgetType}
         onChange={field.onChange}
         options={options}
         style={style}

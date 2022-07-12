@@ -20,7 +20,8 @@
     display: none;
 }
 
-.select-title {
+.select-wrapper .title {
+    font-weight: 400;
     display: flex;
     align-items: center;
     box-sizing: border-box;

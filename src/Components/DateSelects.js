@@ -14,7 +14,9 @@ export const DateSelects = ({ name, label, years, control, errors, rules }) => {
       <div className="inline-input">
         <SelectInput
           name={`${name}_dia`}
+          groupName={name}
           label="Dia"
+          widgetType={'date-select'}
           style={{ width: '20%' }}
           options={range(1, 31)}
           control={control}
@@ -23,7 +25,9 @@ export const DateSelects = ({ name, label, years, control, errors, rules }) => {
         />
         <SelectInput
           name={`${name}_mes`}
+          groupName={name}
           label="Mes"
+          widgetType={'date-select'}
           style={{ width: '40%' }}
           options={[
             'Enero',
@@ -45,7 +49,9 @@ export const DateSelects = ({ name, label, years, control, errors, rules }) => {
         />
         <SelectInput
           name={`${name}_anio`}
+          groupName={name}
           label="Año"
+          widgetType={'date-select'}
           style={{ width: '20%' }}
           options={years}
           control={control}
