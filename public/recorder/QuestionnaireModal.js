@@ -142,3 +142,4 @@ QuestionnaireModal.prototype.remove = function () {
   this.container.parentNode.removeChild(this.container);
 };
 
+window.QuestionnaireModal = QuestionnaireModal;

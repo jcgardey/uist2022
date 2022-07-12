@@ -2,23 +2,20 @@ function ScreenRecorder() {
   this.recording = false;
   this.modal = new RecorderModal(this);
   this.events = [];
-  this.allEvents = [];
-  //window.onbeforeunload = this.saveScreencast.bind(this);
-  //window.onblur = this.saveScreencast.bind(this);
-  // this function will send events to the backend and reset the events array
-  setInterval(this.save.bind(this), 5000);
+  window.onbeforeunload = this.saveScreencast.bind(this);
+  window.onblur = this.saveScreencast.bind(this);
   this.finished = false;
 }
 
 ScreenRecorder.prototype.createScreencast = function () {
   this.id = this.getNextID();
+  this.startTime = new Date();
 };
 
 ScreenRecorder.prototype.stopRecording = function (finished) {
   this.pauseRecording();
   this.eventLogger.stopLogging();
-  console.log('events ', this.allEvents);
-  fetch('http://localhost:1702/micrometrics/screencast', {
+  fetch('http://usabilityrater.ml/micrometrics/screencast', {
     method: 'POST',
     mode: 'no-cors',
     headers: {
@@ -27,22 +24,14 @@ ScreenRecorder.prototype.stopRecording = function (finished) {
     body: JSON.stringify({
       id: this.id,
       metrics: this.eventLogger.getMicroMetrics(),
-      events: this.allEvents,
+      events: this.events,
       finished: finished || false,
       time: new Date() - this.startTime,
     }),
   });
+  this.events = [];
+  localStorage.removeItem('screencast');
   console.log('screencast finished');
-  /*
-  browser.runtime.sendMessage({
-    message: 'stop',
-    data: {
-      widgets: this.eventLogger.getMicroMetrics(),
-      events: this.events,
-      finished: finished || false,
-      time: new Date() - this.startTime,
-    },
-  });*/
 };
 
 ScreenRecorder.prototype.toggleRecording = function () {
@@ -57,7 +46,6 @@ ScreenRecorder.prototype.toggleRecording = function () {
 
 ScreenRecorder.prototype.pauseRecording = function () {
   this.stopScreencast();
-  //this.modal.hide();
   this.recording = false;
 };
 
@@ -313,6 +301,7 @@ ScreenRecorder.prototype.getNextID = function () {
 
 ScreenRecorder.prototype.startRecording = function (widgets, nextMetricNumber) {
   //this.modal.show();
+  console.log('start with widgets ', widgets);
   this.recording = true;
   const me = this;
   this.stopScreencast = rrweb.record({
@@ -322,30 +311,26 @@ ScreenRecorder.prototype.startRecording = function (widgets, nextMetricNumber) {
   });
   this.eventLogger = new MicroMetricLogger(this.id, widgets, nextMetricNumber);
   this.eventLogger.startLogging();
-  this.startTime = new Date();
 };
 
 ScreenRecorder.prototype.saveScreencast = function () {
   if (this.recording) {
     this.pauseRecording();
-    this.save();
+    if (this.events.length > 0) {
+      localStorage.setItem(
+        'screencast',
+        JSON.stringify({
+          id: this.id,
+          events: this.events,
+        })
+      );
+      //this.events = [];
+    }
     this.eventLogger.pauseLogging();
   }
 };
 
-ScreenRecorder.prototype.save = function () {
-  if (this.events.length > 0) {
-    this.allEvents = this.allEvents.concat(this.events);
-    localStorage.setItem(
-      'screencast',
-      JSON.stringify({
-        id: this.id,
-        events: this.allEvents,
-      })
-    );
-    this.events = [];
-  }
-};
+ScreenRecorder.prototype.save = function () {};
 
 ScreenRecorder.prototype.checkExistingScreencast = function () {
   const screencast = localStorage.getItem('screencast')
@@ -360,14 +345,14 @@ ScreenRecorder.prototype.checkExistingScreencast = function () {
   }
 };
 
-var screenRecorder = new ScreenRecorder();
+window.screenRecorder = new ScreenRecorder();
 
 function resumeCurrentTab() {
   if (!screenRecorder.recording) {
     screenRecorder.checkExistingScreencast();
   }
 }
-/*
+
 window.onload = resumeCurrentTab;
 window.onfocus = resumeCurrentTab;
-*/
+

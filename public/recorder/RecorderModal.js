@@ -16,8 +16,9 @@ RecorderModal.prototype.create = function () {
 };
 
 RecorderModal.prototype.initialize = function () {
-  this.title.innerHTML = 'Grabar Interacción';
-  this.finish.setAttribute('disabled', true);
+  this.title.innerHTML = 'Grabar';
+  this.start.removeAttribute('disabled');
+  //this.finish.setAttribute('disabled', true);
   this.abandon.setAttribute('disabled', true);
 };
 
@@ -29,7 +30,8 @@ RecorderModal.prototype.createButtons = function () {
   this.start.addEventListener('click', function () {
     me.screenRecorder.toggleRecording();
     me.title.textContent = 'Gabrando';
-    me.finish.removeAttribute('disabled');
+    me.start.setAttribute('disabled', true);
+    //me.finish.removeAttribute('disabled');
     me.abandon.removeAttribute('disabled');
   });
 
@@ -39,17 +41,18 @@ RecorderModal.prototype.createButtons = function () {
   this.abandon.addEventListener('click', function () {
     me.screenRecorder.stopRecording(false);
     me.initialize();
-    //new QuestionnaireModal(me.screenRecorder.id).show();
+    new QuestionnaireModal(me.screenRecorder.id).show();
   });
 
+  /*
   this.finish = document.createElement('button');
   this.finish.className = 'stop';
   this.finish.textContent = 'Finalizar';
   this.finish.addEventListener('click', function () {
     me.screenRecorder.stopRecording(true);
     me.initialize();
-    //new QuestionnaireModal(me.screenRecorder.id).show();
-  });
+    new QuestionnaireModal(me.screenRecorder.id).show();
+  });*/
 
   const buttonsContainer = document.createElement('div');
   buttonsContainer.style.display = 'flex';
@@ -57,7 +60,7 @@ RecorderModal.prototype.createButtons = function () {
   buttonsContainer.style.margin = '5px';
   buttonsContainer.appendChild(this.start);
   buttonsContainer.appendChild(this.abandon);
-  buttonsContainer.appendChild(this.finish);
+  //buttonsContainer.appendChild(this.finish);
   this.div.appendChild(buttonsContainer);
 };
 
@@ -67,3 +70,4 @@ RecorderModal.prototype.show = function () {
 RecorderModal.prototype.hide = function () {
   this.div.style.display = 'none';
 };
+

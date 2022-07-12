@@ -4,10 +4,9 @@ import { Select } from './Components/CustomSelect';
 import { RadioSet } from './Components/RadioSet';
 import { DateSelects } from './Components/DateSelects';
 import { Datepicker } from './Components/Datepicker';
-import { Controller, useForm } from 'react-hook-form';
-import { CustomSelect } from './Components/CustomSelect';
+import { useForm } from 'react-hook-form';
 
-export const Widgets = ({}) => {
+export const Widgets = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -15,9 +14,6 @@ export const Widgets = ({}) => {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
-
-  console.log(errors);
 
   return (
     <div className="container">
@@ -59,14 +55,12 @@ export const Widgets = ({}) => {
             name={'fecha_nacimiento'}
             years={['2022', '2021', '2020', '2019']}
             control={control}
-            rules={{ required: true }}
             errors={errors}
           />
           <Datepicker
             label={'Fecha de Inicio'}
             name={'start'}
             register={register}
-            required={true}
             errors={errors.start}
           />
           <div className="form-field">

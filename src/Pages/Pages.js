@@ -16,7 +16,15 @@ export const Pages = () => {
   }, [title]);
 
   const navigate = useNavigate();
-  const onSubmit = () => navigate('/success', { replace: true });
+
+  const onSubmit = () => {
+    navigate('/success', { replace: true });
+    if (window.screenRecorder?.recording) {
+      window.screenRecorder.stopRecording(true);
+      new window.QuestionnaireModal(window.screenRecorder.id).show();
+      window.screenRecorder.modal.initialize();
+    }
+  };
 
   return (
     <Routes>
