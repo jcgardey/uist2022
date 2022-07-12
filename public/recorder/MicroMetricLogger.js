@@ -114,18 +114,22 @@ DOMRect.prototype.includesPoint = function (x, y) {
   return x >= this.left && x <= this.right && y >= this.top && y <= this.bottom;
 };
 
-Object.prototype.withinWidgetSurroundings = function (widget) {
+var withinWidgetSurroundings = function (point, widget) {
   if (!widget) {
     return false;
   }
   var rectangle = widget.getWidgetSurroundings(widget);
-  return rectangle.includesPoint(this.x, this.y);
+  return rectangle.includesPoint(point.x, point.y);
 };
 
+/*
 Object.prototype.asArray = function () {
   return Object.keys(this).map((key) => {
     return this[key];
   });
+};*/
+var objectAsArray = function (obj) {
+  return Object.keys(obj).map((key) => obj[key]);
 };
 
 // intended for debbuging purposes
@@ -495,6 +499,7 @@ MicroMetricLogger.prototype.saveLogs = function () {
 
 MicroMetricLogger.prototype.stopLogging = function () {
   this.pauseLogging();
+  localStorage.removeItem('widgets');
   this.screencastId = null;
 };
 
@@ -601,7 +606,7 @@ class MicroMetric {
     let allWidgets = Array.from(
       document.querySelectorAll(this.targetElementsSelector)
     )
-      .concat(this.microMetricLogger.getRadioGroups().asArray())
+      .concat(objectAsArray(this.microMetricLogger.getRadioGroups()))
       .concat(this.microMetricLogger.getDateSelects());
     let discardedWidgets = Array.from(
       document.querySelectorAll("[data-micrometric-logger='no-capture']")
@@ -611,7 +616,7 @@ class MicroMetric {
 
   getTargetWidget = function (point) {
     for (var i = 0; i < this.getCandidateWidgets().length; i++) {
-      if (point.withinWidgetSurroundings(this.getCandidateWidgets()[i])) {
+      if (withinWidgetSurroundings(point, this.getCandidateWidgets()[i])) {
         return this.getCandidateWidgets()[i];
       }
     }
@@ -664,7 +669,8 @@ class FocusTime extends MicroMetric {
 
   mouseMoveHandler(event) {
     if (
-      { x: event.pageX, y: event.pageY }.withinWidgetSurroundings(
+      withinWidgetSurroundings(
+        { x: event.pageX, y: event.pageY },
         this.currentWidget
       )
     ) {
@@ -1376,7 +1382,7 @@ class HoverToFirstSelection extends MicroMetric {
     ) {
       let radioGroup = this.microMetricLogger.getRadioGroups()[radioGroupName];
 
-      if (point.withinWidgetSurroundings(radioGroup)) {
+      if (withinWidgetSurroundings(point, radioGroup)) {
         if (this._current != radioGroupName) {
           // Mouse entering "radioGroupName"
           this._current = radioGroupName;
@@ -1604,3 +1610,4 @@ class OptionsSelected extends MicroMetric {
     this.microMetricLogger.getWidgetLogs(event.target).optionsSelected += 1;
   }
 }
+
