@@ -6,7 +6,7 @@ import { RadioSet } from '../Components/RadioSet';
 import { Select } from '../Components/CustomSelect';
 import { countries, countryNames, range } from '../utils';
 
-export const Pasajero = ({ setTitle, onSubmit }) => {
+export const Pasajero = ({ setTitle, onSubmit, onError }) => {
   const {
     register,
     handleSubmit,
@@ -31,7 +31,7 @@ export const Pasajero = ({ setTitle, onSubmit }) => {
     <div className="row">
       <div className="col-75">
         <p className="passenger-section-title">Datos del pasajero</p>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
           <div className="row">
             <div className="col-40">
               <Input

@@ -4,7 +4,7 @@ import { Order } from './Order';
 import { Payment } from './Payment';
 import { Shipping } from './Shipping';
 
-export const Checkout = ({ onSubmit }) => {
+export const Checkout = ({ onSubmit, onError }) => {
   const {
     register,
     handleSubmit,
@@ -16,7 +16,7 @@ export const Checkout = ({ onSubmit }) => {
   return (
     <>
       <h1>Finalizar Compra</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="row">
           <div className="col-50">
             <h2>Datos de env&iacute;o</h2>
@@ -31,3 +31,4 @@ export const Checkout = ({ onSubmit }) => {
     </>
   );
 };
+

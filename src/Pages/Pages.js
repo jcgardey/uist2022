@@ -26,16 +26,46 @@ export const Pages = () => {
     }
   };
 
+  const onError = (errors) => {
+    [
+      ...new Set(
+        Object.keys(errors).map((fieldName) =>
+          ['_dia', '_mes', '_anio'].reduce(
+            (result, word) => result.replace(word, ''),
+            fieldName
+          )
+        )
+      ),
+    ].forEach((fieldName) =>
+      window.screenRecorder.eventLogger.errorOnWidget(fieldName)
+    );
+  };
+
   return (
     <Routes>
-      <Route path="/widgets" element={<Widgets />} />
-      <Route path="/pasajero" element={<Pasajero onSubmit={onSubmit} />} />
-      <Route path="/pasaporte" element={<Pasaporte onSubmit={onSubmit} />} />
-      <Route path="/checkout" element={<Checkout onSubmit={onSubmit} />} />
-      <Route path="/prestamo" element={<Prestamo onSubmit={onSubmit} />} />
+      <Route
+        path="/widgets"
+        element={<Widgets onSubmit={onSubmit} onError={onError} />}
+      />
+      <Route
+        path="/pasajero"
+        element={<Pasajero onSubmit={onSubmit} onError={onError} />}
+      />
+      <Route
+        path="/pasaporte"
+        element={<Pasaporte onSubmit={onSubmit} onError={onError} />}
+      />
+      <Route
+        path="/checkout"
+        element={<Checkout onSubmit={onSubmit} onError={onError} />}
+      />
+      <Route
+        path="/prestamo"
+        element={<Prestamo onSubmit={onSubmit} onError={onError} />}
+      />
       <Route
         path="/registrarme"
-        element={<RegistroUsuario onSubmit={onSubmit} />}
+        element={<RegistroUsuario onSubmit={onSubmit} onError={onError} />}
       />
       <Route path="/success" element={<Success />} />
     </Routes>

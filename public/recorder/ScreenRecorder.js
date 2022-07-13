@@ -24,6 +24,7 @@ ScreenRecorder.prototype.stopRecording = function (finished) {
     body: JSON.stringify({
       id: this.id,
       metrics: this.eventLogger.getMicroMetrics(),
+      errors: this.eventLogger.totalErrors(),
       events: this.events,
       finished: finished || false,
       time: new Date() - this.startTime,

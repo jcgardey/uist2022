@@ -7,7 +7,7 @@ import { provinces } from '../../utils';
 import './Prestamo.css';
 import image from './prestamo.png';
 
-export const Prestamo = ({ onSubmit }) => {
+export const Prestamo = ({ onSubmit, onError }) => {
   const {
     register,
     handleSubmit,
@@ -42,7 +42,7 @@ export const Prestamo = ({ onSubmit }) => {
       <div className="col-50">
         <div className="prestamo-section container">
           <h2>Simul&aacute; tu pr&eacute;stamo en pesos</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit, onError)}>
             <div className="row">
               <div className="col-20">
                 <Select
@@ -130,3 +130,4 @@ export const Prestamo = ({ onSubmit }) => {
     </div>
   );
 };
+

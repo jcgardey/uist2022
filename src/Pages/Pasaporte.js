@@ -5,7 +5,7 @@ import { Select } from '../Components/CustomSelect';
 import { cities, provinces } from '../utils';
 import './Pasaporte.css';
 
-export const Pasaporte = ({ onSubmit }) => {
+export const Pasaporte = ({ onSubmit, onError }) => {
   const {
     register,
     handleSubmit,
@@ -30,7 +30,7 @@ export const Pasaporte = ({ onSubmit }) => {
       <h2 className="title">Sacar turno</h2>
       <h3>Pasaporte</h3>
       <div className="col-50">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
           <div className="passport-section">
             <p className="passport-section-title">
               1. Eleg&iacute; la provincia, localidad y sede del tr&aacute;mite

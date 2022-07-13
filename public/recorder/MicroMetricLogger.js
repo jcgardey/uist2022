@@ -215,6 +215,7 @@ function WidgetLogs(widget) {
     mouseTraceLength: 0,
     timestamp: new Date().getTime(),
     mouseDwellTime: 0,
+    errors: 0,
   };
 }
 
@@ -584,6 +585,22 @@ function removeEventListener(selector, eventName, handler) {
     targetElements[i].removeEventListener(eventName, handler);
   }
 }
+
+MicroMetricLogger.prototype.errorOnWidget = function (widgetName) {
+  const widget =
+    this.getDateSelectNamed(widgetName) ||
+    this.getRadioGroups()[widgetName] ||
+    document.querySelector(`div[data-select-name='${widgetName}']`) ||
+    document.querySelector(`input[name='${widgetName}']`);
+  this.getWidgetLogs(widget).errors += 1;
+};
+
+MicroMetricLogger.prototype.totalErrors = function () {
+  return Object.keys(this.widgets).reduce(
+    (total, widgetName) => total + this.widgets[widgetName].errors,
+    0
+  );
+};
 
 /********************************************************************************/
 /********                                                                 *******/

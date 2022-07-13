@@ -5,7 +5,7 @@ import { Input } from '../Components/Input';
 
 import './RegistroUsuario.css';
 
-export const RegistroUsuario = ({ onSubmit }) => {
+export const RegistroUsuario = ({ onSubmit, onError }) => {
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ export const RegistroUsuario = ({ onSubmit }) => {
         >
           Registro de Nuevo Usuario
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
           <div className="row">
             <div className="col-40">
               <Input
@@ -61,7 +61,7 @@ export const RegistroUsuario = ({ onSubmit }) => {
                   required: true,
                   pattern: {
                     value:
-                      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
+                      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_])[A-Za-z\d@$!%*#?&_]{6,}$/,
                     message:
                       'Debe contener como mínimo 6 caracteres, al menos una letra, un número y un caracter especial',
                   },
