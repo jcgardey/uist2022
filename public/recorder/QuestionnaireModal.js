@@ -25,10 +25,12 @@ QuestionnaireModal.prototype.show = function () {
   );
   this.container.appendChild(this.questions);
 
-  this.questions.appendChild(this.createInput('age', 'Edad'));
-  this.questions.appendChild(
-    this.createInput('hours', 'Cantidad de horas diarias que utiliza la web')
-  );
+  if (!(localStorage.getItem('age') || localStorage.getItem('hours'))) {
+    this.questions.appendChild(this.createInput('age', 'Edad'));
+    this.questions.appendChild(
+      this.createInput('hours', 'Cantidad de horas diarias que utiliza la web')
+    );
+  }
 
   this.container.appendChild(this.createSubmitButton());
 
@@ -107,7 +109,9 @@ QuestionnaireModal.prototype.validateInputs = function () {
   const inputs = ['age', 'hours'];
   return (
     inputs.filter(
-      (i) => document.querySelector(`input[name="${i}"]`).value !== ''
+      (i) =>
+        document.querySelector(`input[name="${i}"]`)?.value !== '' ||
+        localStorage.getItem(i)
     ).length === inputs.length
   );
 };
@@ -117,6 +121,17 @@ QuestionnaireModal.prototype.sendQuestionnaire = function () {
     console.log('form invalido');
     return false;
   }
+  if (!localStorage.getItem('age') && !localStorage.getItem('hours')) {
+    localStorage.setItem(
+      'age',
+      document.querySelector(`input[name="age"]`).value
+    );
+    localStorage.setItem(
+      'hours',
+      document.querySelector(`input[name="hours"]`).value
+    );
+  }
+
   fetch(`http://localhost:1702/micrometrics/questionnaire/${this.id}`, {
     method: 'POST',
     mode: 'no-cors',
@@ -130,8 +145,8 @@ QuestionnaireModal.prototype.sendQuestionnaire = function () {
           .value,
         question_2: document.querySelector('input[name="question_2"]:checked')
           .value,
-        age: document.querySelector(`input[name="age"]`).value,
-        hours: document.querySelector(`input[name="hours"]`).value,
+        age: localStorage.getItem('age'),
+        hours: localStorage.getItem('hours'),
       },
     }),
   });
@@ -143,3 +158,4 @@ QuestionnaireModal.prototype.remove = function () {
 };
 
 window.QuestionnaireModal = QuestionnaireModal;
+
