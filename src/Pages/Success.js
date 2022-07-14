@@ -9,7 +9,8 @@ export const Success = () => (
       src={successImage}
     />
     <h3 style={{ textAlign: 'center' }}>
-      Presione "Finalizar" para completar la tarea
+      Pod&eacute;s cerrar esta pestaña y continuar con el siguiente formulario
     </h3>
   </>
 );
+
