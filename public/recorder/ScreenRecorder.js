@@ -15,6 +15,11 @@ ScreenRecorder.prototype.createScreencast = function () {
 ScreenRecorder.prototype.stopRecording = function (finished) {
   this.pauseRecording();
   this.eventLogger.stopLogging();
+  this.finished = finished;
+  console.log('screencast finished');
+};
+
+ScreenRecorder.prototype.sendScreencast = function (questions) {
   fetch('http://usabilityrater.ml/micrometrics/screencast', {
     method: 'POST',
     mode: 'no-cors',
@@ -26,13 +31,13 @@ ScreenRecorder.prototype.stopRecording = function (finished) {
       metrics: this.eventLogger.getMicroMetrics(),
       errors: this.eventLogger.totalErrors(),
       events: this.events,
-      finished: finished || false,
+      finished: this.finished || false,
       time: new Date() - this.startTime,
+      questions,
     }),
   });
   this.events = [];
   localStorage.removeItem('screencast');
-  console.log('screencast finished');
 };
 
 ScreenRecorder.prototype.toggleRecording = function () {
@@ -356,4 +361,3 @@ function resumeCurrentTab() {
 
 window.onload = resumeCurrentTab;
 window.onfocus = resumeCurrentTab;
-

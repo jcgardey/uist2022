@@ -132,6 +132,7 @@ QuestionnaireModal.prototype.sendQuestionnaire = function () {
     );
   }
 
+  /*
   fetch(`http://localhost:1702/micrometrics/questionnaire/${this.id}`, {
     method: 'POST',
     mode: 'no-cors',
@@ -150,6 +151,16 @@ QuestionnaireModal.prototype.sendQuestionnaire = function () {
       },
     }),
   });
+  */
+  window.screenRecorder.sendScreencast({
+    id: this.id,
+    question_1: document.querySelector('input[name="question_1"]:checked')
+      .value,
+    question_2: document.querySelector('input[name="question_2"]:checked')
+      .value,
+    age: localStorage.getItem('age'),
+    hours: localStorage.getItem('hours'),
+  });
   this.remove();
 };
 
@@ -158,4 +169,3 @@ QuestionnaireModal.prototype.remove = function () {
 };
 
 window.QuestionnaireModal = QuestionnaireModal;
-
