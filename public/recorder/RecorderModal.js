@@ -4,12 +4,16 @@ function RecorderModal(screenRecorder) {
 }
 
 RecorderModal.prototype.create = function () {
+  this.overlay = document.createElement('div');
+  this.overlay.id = 'recorder-overlay';
+
   this.div = document.createElement('div');
   this.div.id = 'recorder-container';
   this.div.className = 'rr-ignore';
   this.title = document.createElement('h5');
   this.div.id = 'recorder-container';
   this.div.appendChild(this.title);
+  document.body.appendChild(this.overlay);
   document.body.appendChild(this.div);
   this.createButtons();
   this.initialize();
@@ -17,6 +21,7 @@ RecorderModal.prototype.create = function () {
 
 RecorderModal.prototype.initialize = function () {
   this.title.innerHTML = 'Grabar';
+  this.overlay.style.display = '';
   this.start.removeAttribute('disabled');
   //this.finish.setAttribute('disabled', true);
   this.abandon.setAttribute('disabled', true);
@@ -28,6 +33,7 @@ RecorderModal.prototype.createButtons = function () {
   this.start.textContent = 'Iniciar';
   const me = this;
   this.start.addEventListener('click', function () {
+    me.overlay.style.display = 'none';
     me.screenRecorder.toggleRecording();
     me.title.textContent = 'Gabrando';
     me.start.setAttribute('disabled', true);
