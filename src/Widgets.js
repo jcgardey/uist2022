@@ -6,7 +6,7 @@ import { DateSelects } from './Components/DateSelects';
 import { Datepicker } from './Components/Datepicker';
 import { useForm } from 'react-hook-form';
 
-export const Widgets = ({ onSubmit }) => {
+export const Widgets = ({ onSubmit, onError }) => {
   const {
     register,
     handleSubmit,
@@ -18,7 +18,7 @@ export const Widgets = ({ onSubmit }) => {
   return (
     <div className="container">
       <div className="col-4">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
           <Input
             name={'name'}
             label={'Nombre'}
@@ -55,6 +55,7 @@ export const Widgets = ({ onSubmit }) => {
             name={'fecha_nacimiento'}
             years={['2022', '2021', '2020', '2019']}
             control={control}
+            rules={{ required: true }}
             errors={errors}
           />
           <Datepicker

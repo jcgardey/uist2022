@@ -106,7 +106,7 @@ export const SelectInput = ({
     rules={rules}
     render={({ field }) => (
       <CustomSelect
-        groupName={groupName}
+        groupName={groupName || name}
         label={label}
         value={field.value}
         widgetType={widgetType}
